@@ -1,56 +1,73 @@
-<div class="CustomerDetails" [formGroup]="group">
+<!-- 独立表单群 Customer Details 包括一个由 firstname, lastname 和 phonenumber 组成的表单群 & 一个子 address 表单群组成 -->
+<!-- 当前 Customer Details 表单群又作为一个子表单群被置于更大的表单群里 -->
+<div class="CustomerDetails" [formGroup]="group"> <!-- group 变量被装饰为 Input 属性, Angular 会自动根据用户的输入值将其绑定到 data 域 -->
+  <!-- 每一个表单群由一个或多个 row 组成 -->
   <div class="row">
+    <!-- 每一个 row 被分割成最多为 12 列的 block -->
     <div class="col-md-12">
+      <!-- 被分割出来的列组成一组 DOM 元素 -->
       <h3>
-        Customer Details
+        <!-- 标题为单独的一排独立元素横跨 12 列 (相对位置 - 相对于当前 Customer Details 表单) -->
+        Customer Details <!-- 当前 Customer Details 表单作为子表单相对于总表单占据 8 列位置 -->
       </h3>
     </div>
+
+    <!-- 单独的 block 元素  (另起一行新的区域) 只占据 3 列 -->
     <div class="col-md-3">
+      <!-- 当前区域被定义为: mat-表单域且占满当前 3 列的宽度 -->
       <mat-form-field class="full-width-input">
+        <!-- 定义表单输入为 matInput 属性及当前表单域控制器为 firstName, 当用户输入时 @Input 装饰器自动将值绑定到变量为 firstName 的表单控制器上 -->
         <input matInput placeholder="First Name" formControlName="firstName" />
       </mat-form-field>
     </div>
+    
     <div class="col-md-3">
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Last Name" formControlName="lastName" />
       </mat-form-field>
     </div>
+
     <div class="col-md-3">
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Phone Number" formControlName="phoneNumber" />
       </mat-form-field>
     </div>
+    <!-- 结束当前 row 的元素布局, 用满 9 列空出 3 列 -->
   </div>
 
+  <!-- 独立的表单群: 地址表单 (CustomerDetails 大表单的子表单, 单独享受自己的表单群 address) -->
   <div class="row" [formGroup]="group.get('address')">
+    <!-- row: 当占满 12 列时生成新的 row (block) -->
     <div class="col-md-12">
       <h3>
         Delivery Address
       </h3>
     </div>
+
     <div class="col-md-3">
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Street" formControlName="street" />
       </mat-form-field>
     </div>
+    
     <div class="col-md-3">
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Apt. Number" formControlName="houseNum" />
       </mat-form-field>
     </div>
+    
     <div class="col-md-3">
       <mat-form-field class="full-width-input">
         <input matInput placeholder="City" formControlName="city" />
       </mat-form-field>
     </div>
+    
     <div class="col-md-3">
       <mat-form-field class="full-width-input">
         <input matInput placeholder="Floor" formControlName="floor" />
       </mat-form-field>
     </div>
+  <!-- 结束 address 子表单群构造 -->
   </div>
+<!-- 总表单群: 独立表单域 + 子表单群 -->
 </div>
-
-
-
-

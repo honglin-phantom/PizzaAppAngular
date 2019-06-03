@@ -52,7 +52,7 @@ export class PizzaFormContainerComponent implements OnInit {
 
   ngOnInit() {
     /* 当页面地址通过 id 的形式限定, 通过 pizzaLoaderService 服务从服务器端载入 id 对应的 pizza */
-    if (this.editMode) {
+    if (this.editMode) { /* 如果传入路由器的 id 参数存在则说明编辑已经存在的表单 */
       /**
        * @param: DEMO_PIZZA - IPizzaFormInterface
        * @returns: 通过 loadPizzaForEdit 服务将 mock up 数据 map 到当前的表单中编辑

@@ -5,9 +5,11 @@
         {{selectedPizzaGroup.errors?.toppingPizzaSize?.message}}
       </div>
     </div>
+
     <div class="col-md-6 offset-md-3">
       <app-pizza-size-picker formControlName="size"></app-pizza-size-picker>
     </div>
+    
     <div class="col-md-12 mg-top-15">
       <h5>Toppings</h5>
       <div class="ToppingsSelector" formArrayName="toppings">
@@ -19,6 +21,7 @@
       </div>
     </div>
   </div>
+  
   <div class="row" *ngIf="!selectedPizzaGroup" style="height: 100%">
     <div class="PizzaSelectorView__no-selected">
       <h4>

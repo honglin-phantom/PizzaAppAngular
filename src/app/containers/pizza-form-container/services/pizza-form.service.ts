@@ -5,7 +5,8 @@ import { IPizzaFormInterface, IToppingItem, PizzaSizeEnum, PizzaToppingsEnum } f
 
 @Injectable()
 export class PizzaFormService {
-  public availableToppings = [...Object.values(PizzaToppingsEnum)];
+  /* values(): returns an array of values of the enumerable properties of an object */
+  public availableToppings = [...Object.values(PizzaToppingsEnum)]; /* spread operator ... will expand Object.values() in place */
   public form: FormGroup;
 
   constructor(
@@ -104,7 +105,8 @@ export class PizzaFormService {
     /* 表单构造器将 pizza 对象 {1. size 2. toppings} 和 validator 对象 {1.validator} 组合成一个 FromGroup 并返回 */
     return this.fb.group({
       size: [size],
-      toppings: this.mapToCheckboxArrayGroup(this.availableToppings)
+      toppings: this.mapToCheckboxArrayGroup(this.availableToppings) /* returns a form array that each form consists of toppings
+                                                                        form group that has a name and a selected properties */
     }, {
       validator: this.pizzaValidatorsService.pizzaItemValidator()
     });
@@ -136,11 +138,13 @@ export class PizzaFormService {
     return toppings.filter(i => i.selected);
   }
 
+  /* 自定义重置表单函数: 手动从 pizzasArray 移除所有 form  */
   resetForm() {
     while (this.pizzasArray.length) {
       this.pizzasArray.removeAt(0);
     }
 
+    /* Reactive Form 自带的 reset() 函数: 清空表单数据 */
     this.form.reset();
   }
 
@@ -148,11 +152,12 @@ export class PizzaFormService {
    * Create a mapping of a string based dataset
    * to a form array suitable for a multi checkbox array selection.
    * this provides a more concise solution
-   * as oppose to working with [true, false, false, true]
+   * as opposed to working with [true, false, false, true]
    */
-  private mapToCheckboxArrayGroup(data: string[]): FormArray {
-    return this.fb.array(data.map((i) => {
-      return this.fb.group({
+  private mapToCheckboxArrayGroup(data: string[]): FormArray { /* 返回表单数组 */
+    /* 每一个 toppings 元素组成大的表单数组 */
+    return this.fb.array(data.map((i) => { /* 将数据集合中的每一个 toppings 元素建立表单 */
+      return this.fb.group({ /* 任意 toppings 元素被定义为有 name 和 selected 的小表单 */
         name: i,
         selected: false
       });

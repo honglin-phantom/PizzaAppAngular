@@ -1,37 +1,55 @@
+<!-- pizza app 总表单(包括 size picker 子表单群) -->
 <div class="container content" [formGroup]="form">
   <div class="row">
     <div class="col-md-12">
-      <div *ngIf="!!form.errors.noPizzas && form.dirty" class="ValidationErrorLabel mg-bottom-15">
+      <!--<div *ngIf="!!form.errors.noPizzas && form.dirty" class="ValidationErrorLabel mg-bottom-15">
         {{!!form.errors.noPizzas.message}}
-      </div>
+      </div>-->
     </div>
   </div>
+
+  <!-- 独立子表单群 - 包括子表单群 size picker -->
   <div class="row">
+    <!-- 将总表单群分割为 8 列和 4 列的两个独立表单群 -->
     <div class="col-md-8">
+      <!-- 位于左边 8 列的子表单群 -->
       <div class="row">
+        <!-- size picker 子表单群占据当前表单群的 12 列 -->
         <div class="col-md-12">
+          <!-- 通过元素 selector 将 size picker 元件注入到当前表单 -->
           <app-selected-pizza-viewer (addPizza)="onPizzaAdd()"
                                      [selectedPizzaGroup]="selectedPizzaGroup">
+          <!-- 通过表单服务方法实现来自 size picker 表单的功能 -->
           </app-selected-pizza-viewer>
         </div>
       </div>
 
+      <!-- 新的表单群为期独立创造一个 block (row) -->
       <div class="row">
+        <!-- 当前 Customer Details 的子表单群置于总表单群的左边 8 列 (相对占据 12 列) -->
         <div class="col-md-12">
           <app-customer-details [group]="form.get('customerDetails')"></app-customer-details>
         </div>
       </div>
+
       <div class="row">
+        <!-- button 群组占据左边表单群的 12 列 -->
         <div class="col-md-12">
+          <!-- submit button 置于当前格子的右边 -->
+          <!-- mat-raised-button: rectangular contained button w/ elevation -->
+          <!-- color: primary RGB color -->
           <button class="pull-right" mat-raised-button color="primary" (click)="submit(form.value)">
             SUBMIT
           </button>
+
           <button mat-raised-button color (click)="reset()">
             RESET
           </button>
         </div>
       </div>
     </div>
+
+    <!-- 右边的子表单群占据 4 列 -->
     <div class="col-md-4">
       <app-pizza-list [group]="form"
                       (pizzaSelected)="onPizzaSelected($event)"
@@ -39,6 +57,7 @@
                       (deletePizza)="onPizzaDelete($event)">
       </app-pizza-list>
     </div>
+  
   </div>
 </div>
 
